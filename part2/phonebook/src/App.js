@@ -1,27 +1,13 @@
 import React, { useState } from 'react'
 import Person from './components/Person'
+import Form from './components/Form'
+import Filter from './components/Filter'
 
-const App = () => {
-  const [persons, setPersons] = useState([
-    {
-      name: 'Arto Hellas',
-      number: '717-254-3847'
-    },
-    {
-      name: 'Pico deGallo',
-      number: '620-008-0089'
-    },
-    {
-      name: 'Lana del Rey',
-      number: '001-420-6969'
-    },
-    {
-      name: 'Utsav Kafley',
-      number: '717-422-8392'
-    }
-  ])
+const App = ({ phonebook }) => {
+  const [persons, setPersons] = useState(phonebook)
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [nameFilter, setNameFilter] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -35,7 +21,9 @@ const App = () => {
     nameExists ?
       alert(`${nameObject.name} is already in the phonebook`) :
       setPersons(persons.concat(nameObject))
+
     setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
@@ -44,32 +32,28 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
+  const handleFilterChange = (event) => {
+    setNameFilter(event.target.value)
+  }
 
   return (
     <div>
+      <Filter
+        handleFilterChange={handleFilterChange}
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+      />
       <h2>Phonebook</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input
-            value={newName}
-            onChange={handleNameChange}
-          /><br />
-          number: <input
-            value={newNumber}
-            onChange={handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {persons.map(person =>
-          <Person key={person.name} person={person} />
-        )}
-      </ul>
-    </div>
+      <Person persons={persons} nameFilter={nameFilter} />
+      <h2> Add a new: </h2>
+      <Form
+        handleNameChange={handleNameChange}
+        handleNumberChange={handleNumberChange}
+        newName={newName}
+        newNumber={newNumber}
+        addPerson={addPerson}
+      />
+    </div >
   )
 }
 
