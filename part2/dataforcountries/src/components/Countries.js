@@ -3,7 +3,6 @@ import CountryList from './CountryList'
 import Country from './Country'
 
 const Countries = ({ countries, search, setSearch }) => {
-	const [showCountry, setShowCountry] = useState()
 	const filteredCountries = countries.filter(country => country.name.toUpperCase().includes(search.toUpperCase()))
 
 	if (filteredCountries.length > 10) {
