@@ -3,14 +3,14 @@ import Person from './components/Person'
 import Form from './components/Form'
 import Filter from './components/Filter'
 import phonebookService from './services/persons'
-
-import axios from 'axios'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [nameFilter, setNameFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     phonebookService
@@ -39,6 +39,14 @@ const App = () => {
               .filter(person => person.id !== id)
               .concat(returnedPerson))
           })
+          .catch(error => {
+            setMessage("red")
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+            setPersons(persons
+              .filter(person => person.id !== id))
+          })
       }
     } else {
       phonebookService
@@ -48,11 +56,11 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+      setMessage("green")
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
-
-    // nameExists ?
-    //    { } :
-
   }
 
   const handleNameChange = (event) => {
@@ -79,6 +87,7 @@ const App = () => {
         setNameFilter={setNameFilter}
       />
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Person persons={persons} nameFilter={nameFilter} deletePerson={deleteThisPerson} />
       <h2> Add a new: </h2>
       <Form

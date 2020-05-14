@@ -6,29 +6,24 @@
       "id": 4
     },
     {
-      "name": "Person 1",
-      "number": "(389) 848-7960",
-      "id": 5
-    },
-    {
       "name": "Person 2",
       "number": "(776) 220-1101",
       "id": 6
     },
     {
-      "name": "A",
-      "number": "4",
-      "id": 7
+      "name": "Utsav Kafley",
+      "number": "727-223-8999",
+      "id": 10
     },
     {
-      "name": "B",
-      "number": "2",
-      "id": 8
+      "name": "Jyoti Basnet",
+      "number": "777-334-1233",
+      "id": 11
     },
     {
-      "name": "C",
-      "number": "4",
-      "id": 9
+      "name": "Gandhi Basnet",
+      "number": "888-232-9932",
+      "id": 12
     }
   ]
 }
